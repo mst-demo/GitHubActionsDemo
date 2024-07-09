@@ -1,0 +1,21 @@
+on:
+  push:
+    branches: [main]
+
+env:
+  LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }}
+  LW_API_KEY: ${{ secrets.LW_API_KEY }}
+  LW_API_SECRET: ${{ secrets.LW_API_SECRET }}
+
+name: Lacework Code Security (Push)
+jobs:
+  run-analysis:
+    runs-on: ubuntu-20.04
+    name: Run analysis
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Analyze
+        uses: lacework/code-security-action@v1
+        with:
+          target: push
